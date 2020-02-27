@@ -3,9 +3,12 @@ This is the repository for Neural Networks project called Speech Emotion Classif
 
 ## Collaborators 
 Nijat Mursali 
+
 Yunus Emre Darici
 
 ## Introduction
+
+
 
 ## Development 
 
