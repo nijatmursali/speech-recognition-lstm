@@ -1,14 +1,10 @@
-"""
-This example demonstrates how to use `LSTM` model from
-`speechemotionrecognition` package
-"""
-
 from keras.utils import np_utils
 
 from codes.common import dataextraction
 from recognitionpart.dnn import LSTM
 from recognitionpart.utilities import gettingfeaturevectorfromMFCC
-
+from keras.callbacks import EarlyStopping, ModelCheckpoint
+from recognitionpart import *
 
 def lstm_example():
     to_flatten = False
@@ -20,10 +16,15 @@ def lstm_example():
     model = LSTM(input_shape=x_train[0].shape,
                  num_classes=num_labels)
     model.train(x_train, y_train, x_test, y_test_train, n_epochs=50)
-    model.evaluate(x_test, y_test)
+    evaluate = model.evaluate(x_test, y_test)
     filename = '../dataset/Happy/h13.wav'
     print('prediction', model.predict_one(
         gettingfeaturevectorfromMFCC(filename, flatten=to_flatten)), 'Actual 3')
+
+    earlystop = EarlyStopping(monitor='val_acc', mode='max', patience=75, restore_best_weights=True)
+
+    # evaluate model, test data may differ from validation data
+    print(evaluate)
 
 
 if __name__ == '__main__':

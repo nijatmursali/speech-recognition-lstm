@@ -7,7 +7,8 @@ from typing import Tuple
 
 import numpy
 from sklearn.metrics import accuracy_score, confusion_matrix
-
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 class Model(object):
 
     def __init__(self, save_path: str = '', name: str = 'Not Specified'):
@@ -60,6 +61,20 @@ class Model(object):
                                                  y_true=y_test))
         print('Confusion matrix:', confusion_matrix(y_pred=predictions,
                                                     y_true=y_test))
+        #return x_test, y_test
+
+    def training(self):
+        #train_x, test_x, train_y, test_y = train_test_split(x_test, y_test, test_size=0.2, random_state=42)
+        pass
 
     def plotting(self):
+        #model = LSTM()
+        #print(model.summary())
+        # hist = model.fit(train_x, train_y, epochs=50, batch_size=32,
+        #                  validation_data=[test_x[:150], test_y[:150]], callbacks=[earlystop])
+        #print(max(hist.history['accuracy']), max(hist.history['val_accuracy']))
+        #fig, axs = plt.subplots(nrows=1, ncols=2, constrained_layout=True)
+        #ax = axs[0]
         pass
+
+
