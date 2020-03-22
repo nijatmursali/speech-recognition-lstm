@@ -17,7 +17,12 @@ def lstm_example():
                  num_classes=num_labels)
     model.train(x_train, y_train, x_test, y_test_train, n_epochs=50)
     evaluate = model.evaluate(x_test, y_test)
-    filename = '../dataset/Happy/h13.wav'
+
+    #speech recognition - take input from microphone
+    #after that save file in wav format and
+    #filename = to that file
+
+    filename = '../dataset/Neutral/n03.wav'
     print('prediction', model.predict_one(
         gettingfeaturevectorfromMFCC(filename, flatten=to_flatten)), 'Actual 3')
 
