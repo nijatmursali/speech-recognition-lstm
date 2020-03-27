@@ -55,26 +55,29 @@ class Model(object):
 
     def evaluate(self, x_test: numpy.ndarray, y_test: numpy.ndarray) -> None:
         predictions = self.predict(x_test)
+        print(type(predictions))
         print(y_test)
         print(predictions)
+        accscr = accuracy_score(y_pred=predictions, y_true=y_test)
+        confmatrix = confusion_matrix(y_pred=predictions, y_true=y_test)
+
         print('Accuracy:%.3f\n' % accuracy_score(y_pred=predictions,
                                                  y_true=y_test))
         print('Confusion matrix:', confusion_matrix(y_pred=predictions,
                                                     y_true=y_test))
-        #return x_test, y_test
+
+        #plotting
+        # for i in range(0, ):
+        #     print(f"For {i}th  step the accuracy is {accscr}")
+
+
+        #return accscr, confmatrix
 
     def training(self):
         #train_x, test_x, train_y, test_y = train_test_split(x_test, y_test, test_size=0.2, random_state=42)
         pass
 
     def plotting(self):
-        #model = LSTM()
-        #print(model.summary())
-        # hist = model.fit(train_x, train_y, epochs=50, batch_size=32,
-        #                  validation_data=[test_x[:150], test_y[:150]], callbacks=[earlystop])
-        #print(max(hist.history['accuracy']), max(hist.history['val_accuracy']))
-        #fig, axs = plt.subplots(nrows=1, ncols=2, constrained_layout=True)
-        #ax = axs[0]
         pass
 
 
