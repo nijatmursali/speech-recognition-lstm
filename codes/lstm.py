@@ -3,8 +3,8 @@ from keras.utils import np_utils
 from codes.common import dataextraction
 from recognitionpart.dnn import LSTM
 from recognitionpart.utilities import gettingfeaturevectorfromMFCC
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-from recognitionpart import *
+from keras.callbacks import EarlyStopping
+
 
 #for speech recognition
 import speech_recognition as sr
@@ -44,8 +44,9 @@ def lstm_example():
     print('Starting LSTM')
     model = LSTM(input_shape=x_train[0].shape,
                  num_classes=num_labels)
-    model.train(x_train, y_train, x_test, y_test_train, n_epochs=50)
+    model.train(x_train, y_train, x_test, y_test_train, n_epochs=10)
     evaluate = model.evaluate(x_test, y_test)
+
 
     #speech recognition - take input from microphone
     #after that save file in wav format and
@@ -55,15 +56,13 @@ def lstm_example():
     user_speech= get_audio()
 
     filename = 'speech.wav'
-    #filename = '../dataset/Neutral/n03.wav'
+    #filename = '../dataset/Neutral/n03.wav' #used in prediction 
     print('prediction', model.predict_one(
         gettingfeaturevectorfromMFCC(filename, flatten=to_flatten)))
 
     earlystop = EarlyStopping(monitor='val_acc', mode='max', patience=75, restore_best_weights=True)
 
     # evaluate model, test data may differ from validation data
-
-
 
 if __name__ == '__main__':
     lstm_example()

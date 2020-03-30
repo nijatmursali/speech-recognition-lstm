@@ -10,6 +10,7 @@ from keras.layers import LSTM as KERAS_LSTM, Dense, Dropout, Conv2D, Flatten, \
 
 from . import Model
 
+import matplotlib.pyplot as plt
 
 class DNN(Model):
 
@@ -26,7 +27,6 @@ class DNN(Model):
         self.save_path = self.save_path or self.name + '_best_model.h5'
 
     def load_model(self, to_load):
-
         try:
             self.model.load_weights(to_load)
         except:
@@ -36,20 +36,40 @@ class DNN(Model):
     def save_model(self):
         self.model.save_weights(self.save_path)
 
-    def train(self, x_train, y_train, x_val=None, y_val=None, n_epochs=50):
+    def train(self, x_train, y_train, x_val=None, y_val=None, n_epochs=100):
         best_acc = 0
         if x_val is None or y_val is None:
             x_val, y_val = x_train, y_train
         for i in range(n_epochs):
-            # Shuffle the data for each epoch in unison inspired
-            # from https://stackoverflow.com/a/4602224
             p = np.random.permutation(len(x_train))
             x_train = x_train[p]
             y_train = y_train[p]
-            self.model.fit(x_train, y_train, batch_size=32, epochs=1)
+            self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+            history = self.model.fit(x_train, y_train, validation_split=0.33, batch_size=32, epochs=n_epochs)
+
+
             loss, acc = self.model.evaluate(x_val, y_val)
             if acc > best_acc:
                 best_acc = acc
+        print(history.history.keys())
+
+        plt.plot(history.history['accuracy'])
+        plt.plot(history.history['val_accuracy'])
+        plt.title('model accuracy')
+        plt.ylabel('accuracy')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.show()
+
+        # summarize history for loss
+        plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.show()
+
         self.trained = True
 
     def predict_one(self, sample):
@@ -122,5 +142,8 @@ class LSTM(DNN):
         self.model.add(Dense(16, activation='tanh'))
         #self.model.add(Dense(1, activation='sigmoid'))
         #self.model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
+        #self.model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+
 
         return self.model
