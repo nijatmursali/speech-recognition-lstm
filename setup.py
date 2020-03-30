@@ -9,7 +9,7 @@ def _get_requirements():
 
 setup(
     name='speechemotionrecognition',
-    version='1.1',
+    version='1.0',
     packages=['speechemotionrecognition'],
     url='https://github.com/nijatmursali/NeuralNetworks',
     license='MIT',
