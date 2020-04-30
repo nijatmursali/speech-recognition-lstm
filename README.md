@@ -19,6 +19,5 @@ an attention mechanism is applied to both the time and the feature dimension to 
 last iteration of the traditional algorithm. Extensive experiments on the CASIA, eNTERFACE, and GEMEP emotion corpora demonstrate 
 that the performance of the proposed approach is able to outperform the state-of-the-art algorithms reported to date.
 
-## Development 
-
 ## Conclusion
+Developed the algorithm and presented to prof. 
